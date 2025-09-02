@@ -1,0 +1,121 @@
+HTML (index.html)
+This structure includes a section for products that will be dynamically populated by JavaScript.
+
+HTML
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce Product Page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Our Products</h1>
+        <div class="filter-options">
+            <label for="sort-by">Sort by:</label>
+            <select id="sort-by">
+                <option value="name">Name</option>
+                <option value="price">Price</option>
+            </select>
+        </div>
+    </header>
+    <main id="product-container"></main>
+    <script src="script.js"></script>
+</body>
+</html>
+CSS (style.css)
+This CSS uses Flexbox and Grid for a responsive layout. The product grid will adapt to different screen sizes.
+
+CSS
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#product-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.product-card {
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.product-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+/* Responsive design using media queries */
+@media (max-width: 600px) {
+    #product-container {
+        grid-template-columns: 1fr; /* Stack products on smaller screens */
+    }
+}
+JavaScript (script.js)
+This JavaScript fetches product data (simulated here with a static array) and dynamically generates the HTML for each product card. It also includes sorting functionality.
+
+JavaScript
+
+const products = [
+    { id: 1, name: "Laptop", price: 1200, image: "images/laptop.jpg" },
+    { id: 2, name: "Mouse", price: 25, image: "images/mouse.jpg" },
+    { id: 3, name: "Keyboard", price: 75, image: "images/keyboard.jpg" },
+    { id: 4, name: "Monitor", price: 300, image: "images/monitor.jpg" },
+];
+
+const productContainer = document.getElementById('product-container');
+const sortBySelect = document.getElementById('sort-by');
+
+function renderProducts(items) {
+    productContainer.innerHTML = '';
+    items.forEach(product => {
+        const productCard = document.createElement('div');
+        productCard.className = 'product-card';
+        productCard.innerHTML = `
+            <img src="${product.image}" alt="${product.name}" loading="lazy">
+            <h3>${product.name}</h3>
+            <p>$${product.price}</p>
+        `;
+        productContainer.appendChild(productCard);
+    });
+}
+
+function sortProducts() {
+    const sortValue = sortBySelect.value;
+    let sortedProducts = [...products]; // Create a copy to avoid modifying original array
+
+    if (sortValue === 'name') {
+        sortedProducts.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (sortValue === 'price') {
+        sortedProducts.sort((a, b) => a.price - b.price);
+    }
+    renderProducts(sortedProducts);
+}
+
+sortBySelect.addEventListener('change', sortProducts);
+
+// Initial render of products
+renderProducts(products);
