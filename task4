@@ -1,0 +1,67 @@
+HTML (index.html)
+The HTML is the same as the previous To-Do list example.
+
+HTML
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List with Local Storage</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>My To-Do List</h2>
+        <input type="text" id="taskInput" placeholder="Add a new task...">
+        <button id="addButton">Add</button>
+        <ul id="taskList"></ul>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+JavaScript (script.js)
+This JavaScript uses the localStorage API to store and retrieve the to-do list data as a JSON string.
+
+JavaScript
+
+const taskInput = document.getElementById('taskInput');
+const addButton = document.getElementById('addButton');
+const taskList = document.getElementById('taskList');
+
+// Function to save tasks to localStorage
+function saveTasks() {
+    localStorage.setItem('tasks', taskList.innerHTML);
+}
+
+// Function to load tasks from localStorage
+function loadTasks() {
+    const savedTasks = localStorage.getItem('tasks');
+    if (savedTasks) {
+        taskList.innerHTML = savedTasks;
+    }
+}
+
+// Add a new task
+addButton.addEventListener('click', function() {
+    const taskText = taskInput.value.trim();
+    if (taskText !== '') {
+        const li = document.createElement('li');
+        li.innerHTML = `${taskText} <button class="delete-btn">Delete</button>`;
+        taskList.appendChild(li);
+        taskInput.value = '';
+        saveTasks();
+    }
+});
+
+// Remove a task using event delegation
+taskList.addEventListener('click', function(e) {
+    if (e.target.classList.contains('delete-btn')) {
+        e.target.parentElement.remove();
+        saveTasks();
+    }
+});
+
+// Load tasks when the page loads
+loadTasks();
