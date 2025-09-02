@@ -1,0 +1,85 @@
+HTML (index.html)
+HTML
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Webpage</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Welcome to My Page</h1>
+    </header>
+
+    <main>
+        <p>This is a simple paragraph about my webpage. It demonstrates basic HTML elements and structure.</p>
+        <a href="https://www.google.com">Visit Google</a>
+
+        <button id="alertButton">Click Me</button>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
+CSS (style.css)
+CSS
+
+body {
+    font-family: sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+header {
+    background-color: #007BFF;
+    color: white;
+    padding: 20px;
+    width: 100%;
+}
+
+h1 {
+    font-size: 2.5em;
+}
+
+p {
+    font-size: 1.2em;
+    max-width: 600px;
+    margin: 20px 0;
+}
+
+a {
+    color: #007BFF;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #218838;
+}
+JavaScript (script.js)
+JavaScript
+
+document.getElementById('alertButton').addEventListener('click', function() {
+    alert('Hello! You clicked the button.');
+});
